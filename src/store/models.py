@@ -6,15 +6,20 @@ from django.utils.text import slugify
 
 User = get_user_model()
 
-# Create your models here.
 
+class Category(models.Model):
+    name = models.CharField(max_length=128, verbose_name="nom")
+    description = models.TextField(blank=True)
 
 class Product(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL,
+                                 null=True, related_name="products")
     name = models.CharField(max_length=128, verbose_name="nom")
     slug = models.SlugField(max_length=128, blank=True)
     price = models.FloatField(default=0.0, verbose_name="prix")
     description = models.TextField(blank=True)
-    thumbnail = models.ImageField(upload_to="products", blank=True, null=True, verbose_name="image")
+    thumbnail = models.ImageField(upload_to="products", blank=True,
+                                  null=True, verbose_name="image")
 
     stripe_id = models.CharField(max_length=90, blank=True)
 

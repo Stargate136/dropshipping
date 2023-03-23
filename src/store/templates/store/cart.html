@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Panier - NOM BOUTIQUE</title>
+{% endblock %}
+
+{% block main %}
+    <h1>Ton panier</h1>
+
+    <form method="POST" action="{% url 'store:update-quantities' %}">
+        {% csrf_token %}
+        {{ forms.management_form }}
+
+        {% for form in forms %}
+
+            <div>
+                <h2>{{ form.instancde.product.name }}</h2>
+                <img src="{{ form.instance.product.thumbnail.url }}" alt="{{ form.instance.product.name }}" style="max-width: 250px;">
+                <!-- TODO : basculer le style dans CSS -->
+                <p>{{ form.instance.product.description }}</p>
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Mettre a jour les quantités">
+    </form>
+
+    <form action="{% url 'store:create-checkout-session' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Procéder au paiement">
+    </form>
+    <a class="cta" href="{% url 'store:delete-cart' %}">Supprimer le panier</a>
+{% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        {% block head %}
+        <title>NOM BOUTIQUE</title>
+        {% endblock %}
+    </head>
+    <body>
+        <header>BANDEROLE</header>
+        <nav>
+            <a href="{% url 'store:index' %}">Accueil</a>
+            <a href="{% url 'store:products-list' %}">Boutique</a>
+            {% if not user.is_authenticated %}
+                <a href="{% url 'accounts:signup' %}">S'inscrire</a>
+                <a href="{% url 'accounts:login' %}">Se connecter</a>
+            {% else %}
+                <a href="{% url 'accounts:profile' %}">Mon profil</a>
+                <a href="{% url 'accounts:logout' %}">Se déconnecter</a>
+            {% endif %}
+
+            {% if user.cart %}
+                <a href="{% url 'store:cart' %}">Voir le panier ({{ user.cart.orders.count }})</a>
+            {% endif %}
+
+        </nav>
+
+        <main>{% block main %}{% endblock %}</main>
+        <footer>MENTIONS LEGALES</footer>
+
+    </body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Page d'inscription - NOM BOUTIQUE</title>
+{% endblock %}
+
+{% block main %}
+    <h1>Formulaire d'inscription</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="S'inscrire">
+    </form>
+    {% for error in form.errors.values %}
+        <p color="red">{{ error }}</p> <!-- TODO : déplacer la couleur dans le CSS -->
+    {% endfor %}
+
+{% endblock %}

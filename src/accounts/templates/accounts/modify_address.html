@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Modifier l'adresse - NOM BOUTIQUE</title>
+{% endblock %}
+
+{% block main %}
+
+    <h1>Modifier l'adresse de livraison</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li style="color: red;">{{ message }}</li>
+                <!-- TODO : basculer style dans CSS -->
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <input type="submit" value="Sauvegarder">
+    </form>
+
+{% endblock %}

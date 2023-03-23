@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Connexion - NOM BOUTIQUE</title>
+{% endblock %}
+
+{% block main %}
+
+    <h1>Connexion</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Se connecter">
+    </form>
+    {% for error in form.errors.values %}
+        <p color="red">{{ error }}</p>
+    {% endfor %}
+
+{% endblock %}

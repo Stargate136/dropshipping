@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Profil - NOM BOUTIQUE</title>
+{% endblock %}
+
+{% block main %}
+
+    <h1>Profil</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li style="color: red;">{{ message }}</li>
+                <!-- TODO : basculer style dans CSS -->
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <input type="submit" value="Sauvegarder">
+    </form>
+
+    {% if addresses %}
+
+        <h1>Addresses de livraison</h1>
+
+    {% endif %}
+
+    {% for address in addresses %}
+
+        {% include 'accounts/address.html' %}
+
+    {% endfor %}
+
+
+{% endblock %}

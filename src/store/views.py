@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -46,6 +47,7 @@ def add_to_cart(request, slug):
     return redirect(reverse("store:product-detail", kwargs={"slug": slug}))
 
 
+@login_required
 def cart(request):
     orders = models.Order.objects.filter(user=request.user, ordered=False)
     if orders.count() == 0:

@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.shortcuts import get_object_or_404
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
@@ -12,12 +13,9 @@ class Category(models.Model):
     name = models.CharField(max_length=128, verbose_name="nom")
     description = models.TextField(blank=True)
 
-class Category(models.Model):
-    name = models.CharField(max_length=128, verbose_name="nom")
-    description = models.TextField(blank=True)
-
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
@@ -40,6 +38,9 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.name)
         super().save()
+
+    def thumbnail_url(self):
+        return self.thumbnail.url if self.thumbnail else static("img/default.jpg")
 
 
 class Order(models.Model):

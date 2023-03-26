@@ -14,8 +14,8 @@
         {% for product in category.products.all %}
             <h3>{{product.name }} - {{ product.price }} €</h3>
             <a href="{{ product.get_absolute_url }}">
-               <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 250px;">
-               <!-- TODO : basculer style dans CSS -->
+                <img src="{{ product.thumbnail_url }}" alt="{{ product.name }}" style="max-width: 250px;">
+                <!-- TODO : basculer style dans CSS -->
             </a>
       {% endfor %}
    </div>

@@ -15,3 +15,6 @@
 - rentrer l'url <nom_de_domaine>/stripe-webhook
 - copier la clé secrete dans ENDPOINT_SECRET de .env
 - copier la clé d'API dans STRIPE_API_KEY de .env
+
+## Avant de mettre en production
+- Changer l'image dans shop/static/img/default

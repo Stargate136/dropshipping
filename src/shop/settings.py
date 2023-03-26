@@ -140,3 +140,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 STRIPE_API_KEY = env("STRIPE_API_KEY")
 ENDPOINT_SECRET = env("ENDPOINT_SECRET")
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / "shop" / "static"
+]
+
+LOGIN_URL = "/account/login/"

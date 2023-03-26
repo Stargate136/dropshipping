@@ -15,7 +15,7 @@
 
             <div>
                 <h2>{{ form.instance.product.name }} - {{ form.instance.product.price }} €</h2>
-                <img src="{{ form.instance.product.thumbnail.url }}" alt="{{ form.instance.product.name }}" style="max-width: 250px;">
+                <img src="{{ form.instance.product.thumbnail_url }}" alt="{{ form.instance.product.name }}" style="max-width: 250px;">
                 <!-- TODO : basculer le style dans CSS -->
                 <p>{{ form.instance.product.description }}</p>
                 {{ form.as_p }}

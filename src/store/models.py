@@ -6,16 +6,26 @@ from django.utils.text import slugify
 
 User = get_user_model()
 
+<<<<<<< HEAD
+
+class Category(models.Model):
+    name = models.CharField(max_length=128, verbose_name="nom")
+    description = models.TextField(blank=True)
+=======
+>>>>>>> 10085ce49ad6ebe914cfa6866f18d41b3b7f609f
 
 class Category(models.Model):
     name = models.CharField(max_length=128, verbose_name="nom")
     description = models.TextField(blank=True)
 
-
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
+<<<<<<< HEAD
                                  default=True, null=True,
                                  related_name="products")
+=======
+                                 null=True, related_name="products")
+>>>>>>> 10085ce49ad6ebe914cfa6866f18d41b3b7f609f
     name = models.CharField(max_length=128, verbose_name="nom")
     slug = models.SlugField(max_length=128, blank=True)
     price = models.FloatField(default=0.0, verbose_name="prix")

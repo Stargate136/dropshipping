@@ -7,12 +7,18 @@
 {% block main %}
 <h1>La boutique</h1>
 
-{% for product in products %}
-   <h2>{{product.name }}</h2>
-   <a href="{{ product.get_absolute_url }}">
-      <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 250px;">
-      <!-- TODO : basculer style dans CSS -->
-   </a>
+{% for category in categories %}
+    <div>
+        <h2>{{ category.name }}</h2>
+        <p>{{ category.description }}</p>
+        {% for product in category.products %}
+            <h2>{{product.name }}</h2>
+            <a href="{{ product.get_absolute_url }}">
+               <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" style="max-width: 250px;">
+               <!-- TODO : basculer style dans CSS -->
+            </a>
+      {% endfor %}
+   </div>
 {% endfor %}
 
 {% endblock %}

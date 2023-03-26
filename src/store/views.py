@@ -22,9 +22,9 @@ def index(request):
 
 
 class ProductsListView(ListView):
-    model = models.Product
+    model = models.Category
     template_name = "store/products.html"
-    context_object_name = "products"
+    context_object_name = "categories"
 
 
 class ProductDetailView(DetailView):

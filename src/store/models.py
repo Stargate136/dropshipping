@@ -66,7 +66,6 @@ class Cart(models.Model):
         super().delete(*args, **kwargs)
 
     def ordered(self):
-        print("Cart.ordered()")
         for order in self.orders.all():
             order.ordered = True
             order.ordered_date = timezone.now()

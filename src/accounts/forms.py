@@ -14,9 +14,11 @@ class UserRegistrationForm(UserCreationForm):
                   "last_name",
                   'email']
 
+
 class UserLoginForm(AuthenticationForm):
     class Meta:
         model = User
+
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(), label="Mot de passe")
@@ -28,9 +30,12 @@ class UserForm(forms.ModelForm):
                   "email",
                   "password"]
 
+
 class AddressForm(forms.ModelForm):
     email = forms.CharField(widget=forms.EmailInput(), label="Email")
     password = forms.CharField(widget=forms.PasswordInput(), label="Mot de passe")
+    delete = forms.BooleanField(label="Supprimer l'adresse", required=False)
+
     class Meta:
         model = models.ShippingAddress
         fields = ["alias",
@@ -40,5 +45,6 @@ class AddressForm(forms.ModelForm):
                   "city",
                   "zip_code",
                   "country",
+                  "delete",
                   "email",
                   "password"]

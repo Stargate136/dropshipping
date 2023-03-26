@@ -80,17 +80,19 @@ def modify_address(request, pk):
         is_valid = authenticate(email=post.get("email"),
                                 password=post.get("password"))
         if is_valid:
-            address = get_object_or_404(models.ShippingAddress, pk=pk)
+            address: models.ShippingAddress = get_object_or_404(models.ShippingAddress, pk=pk)
+            if post.get("delete", False):
+                address.delete()
+            else:
+                address.alias = post["alias"]
+                address.name = post["name"]
+                address.address_1 = post["address_1"]
+                address.address_2 = post["address_2"]
+                address.city = post["city"]
+                address.zip_code = post["zip_code"]
+                address.country = post["country"]
 
-            address.alias = post["alias"]
-            address.name = post["name"]
-            address.address_1 = post["address_1"]
-            address.address_2 = post["address_2"]
-            address.city = post["city"]
-            address.zip_code = post["zip_code"]
-            address.country = post["country"]
-
-            address.save()
+                address.save()
 
             return redirect("accounts:profile")
 

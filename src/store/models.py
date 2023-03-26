@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
@@ -20,8 +21,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
-                                 default=True, null=True,
-                                 related_name="products")
+                                 null=True, related_name="products")
     name = models.CharField(max_length=128, verbose_name="nom")
     slug = models.SlugField(max_length=128, blank=True)
     price = models.FloatField(default=0.0, verbose_name="prix")
@@ -72,7 +72,8 @@ class Cart(models.Model):
             order.save()
         super().delete()
 
-    def add_product(self, product):
+    def add_product(self, slug):
+        product = get_object_or_404(Product, slug=slug)
         order, created = Order.objects.get_or_create(user=self.user,
                                                      product=product,
                                                      ordered=False)

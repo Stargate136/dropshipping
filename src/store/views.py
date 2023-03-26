@@ -16,6 +16,7 @@ User = get_user_model()
 
 stripe.api_key = settings.STRIPE_API_KEY
 
+
 # Create your views here.
 def index(request):
     return render(request, "store/index.html")
@@ -34,16 +35,16 @@ class ProductDetailView(DetailView):
 
 
 def add_to_cart(request, slug):
-    product = get_object_or_404(models.Product, slug=slug)
     user = request.user
     cart, _ = models.Cart.objects.get_or_create(user=user)
-    done = cart.add_product(product)
+    done = cart.add_product(slug)
     if done:
         messages.add_message(request, messages.INFO, "L'article a été ajouté au panier.")
     else:
         messages.add_message(request, messages.INFO, "Une erreur s'est produite... Veuillez réessayer ultérieurement.")
 
     return redirect(reverse("store:product-detail", kwargs={"slug": slug}))
+
 
 def cart(request):
     orders = models.Order.objects.filter(user=request.user, ordered=False)
@@ -52,6 +53,7 @@ def cart(request):
     OrderFormSet = modelformset_factory(models.Order, form=forms.OrderForm, extra=0)
     formset = OrderFormSet(queryset =orders)
     return render(request, "store/cart.html", context={"forms": formset})
+
 
 def update_quantities(request):
     queryset = models.Order.objects.filter(user=request.user, ordered=False)
@@ -94,6 +96,7 @@ def create_checkout_session(request):
 
 def checkout_succes(request):
     return render(request, "store/succes.html")
+
 
 @csrf_exempt
 def stripe_webhook(request):

@@ -15,6 +15,9 @@ class Category(models.Model):
     name = models.CharField(max_length=128, verbose_name="nom")
     description = models.TextField(blank=True)
 
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL,
                                  default=True, null=True,
@@ -81,3 +84,10 @@ class Cart(models.Model):
             order.quantity += 1
             order.save()
         return True
+
+    def total(self):
+        total = 0
+        for order in self.orders.all():
+            total += order.product.price * order.quantity
+
+        return total

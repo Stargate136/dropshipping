@@ -14,7 +14,7 @@
         {% for form in forms %}
 
             <div>
-                <h2>{{ form.instancde.product.name }}</h2>
+                <h2>{{ form.instance.product.name }} - {{ form.instance.product.price }} €</h2>
                 <img src="{{ form.instance.product.thumbnail.url }}" alt="{{ form.instance.product.name }}" style="max-width: 250px;">
                 <!-- TODO : basculer le style dans CSS -->
                 <p>{{ form.instance.product.description }}</p>
@@ -23,6 +23,8 @@
         {% endfor %}
         <input type="submit" value="Mettre a jour les quantités">
     </form>
+
+    <h2>Total : {{ user.cart.total }} €</h2>
 
     <form action="{% url 'store:create-checkout-session' %}" method="POST">
         {% csrf_token %}

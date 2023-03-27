@@ -18,3 +18,4 @@
 
 ## Avant de mettre en production
 - Changer l'image dans shop/static/img/default
+- Modifier tous les templates pour mettre le nom de la boutique

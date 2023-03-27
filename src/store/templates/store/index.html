@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>Accueil - NOM BOUTIQUE</title>
+    <title>Accueil - NOM BOUTIQUE</title>
 {% endblock %}
 
 {% block main %}
-<h1>Bienvenue sur mon site !</h1>
-<h2>Description</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-   Quisque id ultricies mauris. Pellentesque magna arcu, sagittis
-   a felis sit amet, sollicitudin molestie velit. Nunc id vulputate
-   sem. Cras nec rutrum arcu. Nam rhoncus molestie ex, eu laoreet
-   justo cursus ac. Maecenas porttitor nisl vel rutrum faucibus.
-   Proin gravida leo lectus, quis tincidunt turpis sollicitudin eget.
-   Ut metus ex, egestas sed tortor in, fermentum scelerisque lorem. </p>
-<a class="cta" href="{% url 'store:products-list' %}">Voir les produits</a>
+    <h1>Bienvenue sur mon site !</h1>
+    <h2>Description</h2>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Quisque id ultricies mauris. Pellentesque magna arcu, sagittis
+        a felis sit amet, sollicitudin molestie velit. Nunc id vulputate
+        sem. Cras nec rutrum arcu. Nam rhoncus molestie ex, eu laoreet
+        justo cursus ac. Maecenas porttitor nisl vel rutrum faucibus.
+        Proin gravida leo lectus, quis tincidunt turpis sollicitudin eget.
+        Ut metus ex, egestas sed tortor in, fermentum scelerisque lorem.
+    </p>
+    <a class="cta" href="{% url 'store:products-list' %}">Voir les produits</a>
 {% endblock %}

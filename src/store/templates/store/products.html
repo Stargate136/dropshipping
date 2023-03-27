@@ -6,6 +6,13 @@
 
 {% block main %}
 <h1>La boutique</h1>
+<div>
+    {% for category in categories %}
+        <a href="">{{ category.name }}</a>
+        <p>{{ category.description }}</p>
+        <!-- TODO : Dans le CSS cacher la description et l'afficher seulement quand le lien est hover -->
+    {% endfor %}
+</div>
 
 {% for category in categories %}
     <div>
@@ -18,7 +25,8 @@
                 <!-- TODO : basculer style dans CSS -->
             </a>
       {% endfor %}
-   </div>
+    </div>
+    <!-- TODO : Dans le CSS cacher et afficher seulement quand le lien correspondant est cliqué -->
 {% endfor %}
 
 {% endblock %}

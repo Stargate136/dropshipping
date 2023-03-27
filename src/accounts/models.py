@@ -9,6 +9,7 @@ from shop import settings
 
 stripe.api_key = settings.STRIPE_API_KEY
 
+
 class ShopperManager(BaseUserManager):
     def create_user(self, email, password, **kwargs):
         if not email:

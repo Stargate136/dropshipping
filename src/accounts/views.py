@@ -26,6 +26,7 @@ def signup(request):
     form = forms.UserRegistrationForm()
     return render(request, "accounts/signup.html", context={"form": form})
 
+
 def login_user(request):
     if request.method == "POST":
         form = forms.UserLoginForm(request, data=request.POST)
@@ -45,6 +46,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect(reverse("store:index"))
+
 
 @login_required
 def profile(request):
@@ -66,11 +68,13 @@ def profile(request):
     return render(request, "accounts/profile.html", context={"form": form,
                                                              "addresses": addresses})
 
+
 @login_required
 def set_default_shipping_address(request, pk):
     address: models.ShippingAddress = get_object_or_404(models.ShippingAddress, pk=pk)
     address.set_default()
     return redirect("accounts:profile")
+
 
 @login_required
 def modify_address(request, pk):
@@ -98,7 +102,6 @@ def modify_address(request, pk):
 
         else:
             messages.add_message(request, messages.ERROR, "Mot de passe incorrect.")
-
 
     address = get_object_or_404(models.ShippingAddress, pk=pk)
 

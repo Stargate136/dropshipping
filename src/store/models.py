@@ -37,6 +37,7 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.name)
+        self.category = self.category or Category.objects.get_or_create(name="Autre")
         super().save()
 
     def thumbnail_url(self):

@@ -23,7 +23,6 @@
                 <a href="{% url 'store:cart' %}">Voir le panier ({{ user.cart.orders.count }})</a>
             {% endif %}
         </nav>
-
         <main>{% block main %}{% endblock %}</main>
         <footer>MENTIONS LEGALES</footer>
 

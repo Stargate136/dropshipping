@@ -96,8 +96,8 @@ def create_checkout_session(request):
     return redirect(session.url, code=303)
 
 
-def checkout_succes(request):
-    return render(request, "store/succes.html")
+def checkout_success(request):
+    return render(request, "store/success.html")
 
 
 @csrf_exempt

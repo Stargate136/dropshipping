@@ -1,30 +1,57 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        <!-- STYLE -->
+            <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <!-- FONT -->
+            <!-- ROBOTO -->
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+            <!-- ALKATRA -->
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Alkatra&display=swap" rel="stylesheet">
+
         {% block head %}
         <title>NOM BOUTIQUE</title>
         {% endblock %}
     </head>
     <body>
-        <header>BANDEROLE</header>
-        <nav>
-            <a href="{% url 'store:index' %}">Accueil</a>
-            <a href="{% url 'store:products-list' %}">Boutique</a>
-            {% if not user.is_authenticated %}
-                <a href="{% url 'accounts:signup' %}">S'inscrire</a>
-                <a href="{% url 'accounts:login' %}">Se connecter</a>
-            {% else %}
-                <a href="{% url 'accounts:profile' %}">Mon profil</a>
-                <a href="{% url 'accounts:logout' %}">Se déconnecter</a>
-            {% endif %}
+        <header>
+            <img class="banner" src="{% static 'img/banner.png' %}" alt="BANNER">
+            <nav class="navbar">
+                    <a href="{% url 'store:index' %}">
+                        <img class="navbar-logo" src="{% static 'img/logo.svg' %}" alt="LOGO">
+                    </a>
+                    <ul class="navbar-links">
+                        <li><a href="{% url 'store:index' %}">Accueil</a></li>
+                        <li><a href="{% url 'store:products-list' %}">Boutique</a></li>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <!-- TODO : créer pages a propos et contacts -->
+                    </ul>
 
-            {% if user.cart %}
-                <a href="{% url 'store:cart' %}">Voir le panier ({{ user.cart.orders.count }})</a>
-            {% endif %}
-        </nav>
-        <main>{% block main %}{% endblock %}</main>
+                    <ul class="navbar-links">
+                        {% if not user.is_authenticated %}
+                        <li><a href="{% url 'accounts:signup' %}">S'inscrire</a></li>
+                        <li><a href="{% url 'accounts:login' %}">Se connecter</a></li>
+                        {% else %}
+                            <li><a href="{% url 'accounts:profile' %}">Mon profil</a></li>
+                            <li><a href="{% url 'accounts:logout' %}">Se déconnecter</a></li>
+                        {% endif %}
+
+                        {% if user.cart %}
+                            <li><a href="{% url 'store:cart' %}">Voir le panier</a></li>
+                        {% endif %}
+                    </ul>
+            </nav>
+        </header>
+        <main>
+            {% block main %}{% endblock %}
+        </main>
         <footer>MENTIONS LEGALES</footer>
-
     </body>
 </html>

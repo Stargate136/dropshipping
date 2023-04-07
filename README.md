@@ -17,5 +17,6 @@
 - copier la clé d'API dans STRIPE_API_KEY de .env
 
 ## Avant de mettre en production
-- Changer l'image dans shop/static/img/default
+- Changer les images dans shop/static/img (banner, default et logo) MAIS LES NOMMER PAREIL (100px de hauteur pour la bannière)
 - Modifier tous les templates pour mettre le nom de la boutique
+- Choisir un theme dans le dossier shop/css/themes et l'appliquer dans le fichier shop/templates/base.html

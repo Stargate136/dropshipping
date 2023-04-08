@@ -12,9 +12,13 @@ User = get_user_model()
 class Category(models.Model):
     name = models.CharField(max_length=128, verbose_name="nom")
     description = models.TextField(blank=True)
+    thumbnail = models.ImageField(blank=True)
 
     def __str__(self):
         return self.name
+
+    def thumbnail_url(self):
+        return self.thumbnail.url if self.thumbnail else static("img/default.jpg")
 
 
 class Product(models.Model):

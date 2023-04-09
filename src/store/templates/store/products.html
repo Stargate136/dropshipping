@@ -1,32 +1,53 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
-<title>Boutique - NOM BOUTIQUE</title>
+    <!-- STYLE -->
+        <link rel="stylesheet" href="{% static 'store/css/products.css' %}">
+    <title>Boutique - NOM BOUTIQUE</title>
 {% endblock %}
 
 {% block main %}
-<h1>La boutique</h1>
-<div>
-    {% for category in categories %}
-        <a href="">{{ category.name }}</a>
-        <p>{{ category.description }}</p>
-        <!-- TODO : Dans le CSS cacher la description et l'afficher seulement quand le lien est hover -->
-    {% endfor %}
-</div>
-
-{% for category in categories %}
-    <div>
-        <h2>{{ category.name }}</h2>
-        <p>{{ category.description }}</p>
-        {% for product in category.products.all %}
-            <h3>{{product.name }} - {{ product.price }} €</h3>
-            <a href="{{ product.get_absolute_url }}">
-                <img src="{{ product.thumbnail_url }}" alt="{{ product.name }}" style="max-width: 250px;">
-                <!-- TODO : basculer style dans CSS -->
-            </a>
-      {% endfor %}
+    <h1>La boutique</h1>
+    <div class="categories">
+        <h2>Catégories : </h2>
+        <ul class="categories-buttons">
+            {% for category in categories %}
+                <li>
+                    <a class="category-link" data-id="{{ category.name }}" href="" >{{ category.name }}</a>
+                    <p class="description" data-id="{{ category.name }}">{{ category.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
-    <!-- TODO : Dans le CSS cacher et afficher seulement quand le lien correspondant est cliqué -->
-{% endfor %}
+    <div>
+        {% for category in categories %}
+            <div class="products-category hide-grid" data-id="{{ category.name }}">
+                <div class="category-title" data-id="{{ category.name }}">
+                    <h2>{{ category.name }}</h2>
+                    <p>{{ category.description }}</p>
+                </div>
+                <div class="products" data-id="{{ category.name }}">
+                    {% for product in category.products.all %}
+                        <div class="product">
+                            <h3>{{ product.name }} - {{ product.price }} €</h3>
+                            <a class="thumbnail-link" href="{{ product.thumbnail_url }}">
+                                <img class="thumbnail-miniature" src="{{ product.thumbnail_url }}" alt="{{ product.name }}">
+                            </a>
+                            <div class="links-product">
+                                <a class="cta" href="{{ product.get_absolute_url }}">Voir le produit</a>
+                                <div>&#160&#160&#160&#160&#160&#160&#160&#160&#160&#160&#160&#160&#160&#160</div>
+                                <!-- TODO : trouver une soution plus propre pour espacer les 2 cta -->
+                                <a class="cta" href="{% url 'store:add-to-cart' product.slug %}">Ajouter au panier</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
 
+{% block js %}
+    <script src="{% static 'store/js/products.js' %}"></script>
 {% endblock %}

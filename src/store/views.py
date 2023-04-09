@@ -38,9 +38,10 @@ class ProductDetailView(DetailView):
 
 @login_required
 def add_to_cart(request, slug):
+    quantity = int(request.GET.get("quantity", "1"))
     user = request.user
     cart, _ = models.Cart.objects.get_or_create(user=user)
-    done = cart.add_product(slug)
+    done = cart.add_product(slug, quantity)
     if done:
         messages.add_message(request, messages.INFO, "L'article a été ajouté au panier.")
     else:

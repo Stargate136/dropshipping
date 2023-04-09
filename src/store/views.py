@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import AnonymousUser
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -35,6 +36,7 @@ class ProductDetailView(DetailView):
     context_object_name = "product"
 
 
+@login_required
 def add_to_cart(request, slug):
     user = request.user
     cart, _ = models.Cart.objects.get_or_create(user=user)

@@ -1,26 +1,48 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block head %}
+    <!-- STYLE -->
+        <link rel="stylesheet" href="{% static 'store/css/detail.css' %}">
     <title>Boutique - NOM BOUTIQUE</title>
 {% endblock %}
 
 {% block main %}
 
     <h1>Détails du produit</h1>
-    <h2>{{ product.name }}</h2>
-    <h3>{{ product.price }} €</h3>
-    <img src="{{ product.thumbnail_url }}" alt="{{ product.name }}" style="max-width: 250px">
-    <!-- TODO : basculer style dans CSS -->
-    <h4>Description</h4>
-    <p>{{ product.description }}</p>
-    {% if user.is_authenticated %}
-        <a class="cta" href="{% url 'store:add-to-cart' product.slug %}">
-            Ajouter au panier
-        </a>
-    {% endif %}
+    <div class="product">
+        <div class="thumbnail">
+            <a href="product.thubnail_url">
+                <img class="thumbnail-max" src="{{ product.thumbnail_url }}" alt="{{ product.name }}">
+            </a>
+        </div>
+        <div class="details">
+            <h2>{{ product.name }}</h2>
+            <h3>{{ product.price }} €</h3>
+
+            <h4>Description</h4>
+            <p>{{ product.description }}</p>
+
+            <div class="add-to-cart"><label for="quantity">Quantité :</label>
+                <div class="quantity">
+                    <a class="cta" id="decrement" href="">-</a>
+                    <input type="text" id="quantity" name="quantity" value="1" readonly>
+                    <a class="cta" id="increment" href="">+</a>
+                </div>
+
+                <a class="cta" id="add-to-cart" href="{% url 'store:add-to-cart' product.slug %}">
+                    Ajouter au panier
+                </a>
+            </div>
+        </div>
+    </div>
 
     {% for message in messages %}
         {{ message }}
     {% endfor %}
+{% endblock %}
 
+{% block js %}
+    <script src="{% static 'store/js/detail.js' %}"></script>
 {% endblock %}

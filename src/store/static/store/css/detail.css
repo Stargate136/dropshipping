@@ -1,0 +1,33 @@
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px
+}
+
+.thumbnail-max {
+    max-width: 60%;
+    max-height: 40%;
+}
+
+.details {
+    width: 60%;
+    padding-right: 80px
+}
+
+.add-to-cart {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.quantity {
+    display: flex;
+}
+
+#quantity {
+    max-width: 40px;
+    font-size: 28px;
+    margin: auto;
+    text-align: center
+}

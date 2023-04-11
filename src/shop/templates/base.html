@@ -39,12 +39,13 @@
                         <li><a href="{% url 'accounts:signup' %}">S'inscrire</a></li>
                         <li><a href="{% url 'accounts:login' %}">Se connecter</a></li>
                         {% else %}
+                            <li>Bonjour {{ user.first_name }}</li>
                             <li><a href="{% url 'accounts:profile' %}">Mon profil</a></li>
                             <li><a href="{% url 'accounts:logout' %}">Se déconnecter</a></li>
                         {% endif %}
 
                         {% if user.cart %}
-                            <li><a href="{% url 'store:cart' %}">Voir le panier</a></li>
+                            <li><a href="{% url 'store:cart' %}">Voir le panier ({{ user.cart.orders.count }})</a></li>
                         {% endif %}
                     </ul>
             </nav>

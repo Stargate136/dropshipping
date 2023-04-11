@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
+    <!-- STYLE -->
+        <link rel="stylesheet" href="{% static 'store/css/cart.css' %}">
     <title>Panier - NOM BOUTIQUE</title>
 {% endblock %}
 
@@ -11,24 +14,58 @@
         {% csrf_token %}
         {{ forms.management_form }}
 
-        {% for form in forms %}
+        <div class="products">
+            <table>
+                <tr>
+                    <th>Photo</th>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                    <th>Supprimer</th>
+                </tr>
 
-            <div>
-                <h2>{{ form.instance.product.name }} - {{ form.instance.product.price }} €</h2>
-                <img src="{{ form.instance.product.thumbnail_url }}" alt="{{ form.instance.product.name }}" style="max-width: 250px;">
-                <!-- TODO : basculer le style dans CSS -->
-                <p>{{ form.instance.product.description }}</p>
-                {{ form.as_p }}
-            </div>
-        {% endfor %}
-        <input type="submit" value="Mettre a jour les quantités">
+                {% for form in forms %}
+
+                    {{ form.id }}
+                    <tr>
+                        <td>
+                            <img class="thumbnail-miniature" src="{{ form.instance.product.thumbnail_url }}" alt="{{ form.instance.product.name }}">
+                        </td>
+                        <td><a class="product-link" href="{{ form.instance.product.get_absolute_url }}">{{ form.instance.product.name }}</a></td>
+                        <td>{{ form.instance.product.price }} €</td>
+                        <td>
+                            <div class="quantity">
+                                {{ form.decrement }}
+                                {{ form.quantity }}
+                                {{ form.increment }}
+                            </div>
+                        </td>
+                        <td>{{ form.instance.total_price }}</td>
+                        <td>
+                            <button class="cta delete-button" data-slug="{{ form.instance.product.slug }}">
+                                Supprimer l'article
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <input class="cta" type="submit" value="Mettre a jour les quantités">
     </form>
 
     <h2>Total : {{ user.cart.total }} €</h2>
 
     <form action="{% url 'store:create-checkout-session' %}" method="POST">
         {% csrf_token %}
-        <input type="submit" value="Procéder au paiement">
+        <input class="cta" type="submit" value="Procéder au paiement">
     </form>
-    <a class="cta" href="{% url 'store:delete-cart' %}">Supprimer le panier</a>
+    <form action="{% url 'store:delete-cart' %}">
+        <input class="cta delete-button" type="submit" value="Supprimer le panier">
+    </form>
+{% endblock %}
+
+
+{% block js %}
+    <script type="module" src="{% static 'store/js/cart.js' %}"></script>
 {% endblock %}

@@ -9,18 +9,25 @@ class OrderForm(forms.ModelForm):
         fields = ["quantity"]
 
     def __init__(self, *args, **kwargs):
+
         super().__init__(*args, **kwargs)
 
-        choices = [(i, i) for i in range(1, 99)]
-        self.fields["quantity"] = forms.ChoiceField(choices=choices)
-        self.fields["delete"] = forms.BooleanField(initial=False,
+        self.fields["decrement"] = forms.CharField(label="",
                                                    required=False,
-                                                   label="Supprimer")
-        
-    def save(self, *args, **kwargs):
-        if self.cleaned_data["delete"]:
-            self.instance.delete()
-            if self.instance.user.cart.orders.count() == 0:
-                return self.instance.user.cart.delete()
-            
-        return super().save(*args, **kwargs)
+                                                   widget=forms.TextInput(attrs={'type': 'submit',
+                                                                                 'value': '-',
+                                                                                 "class": "cta",
+                                                                                 "data-role": "decrement"}))
+        self.fields["quantity"] = forms.CharField(label="",
+                                                  widget=forms.TextInput(attrs={'readonly': True,
+                                                                                "value": self.instance.quantity,
+                                                                                "class": "quantity-value",
+                                                                                "data-role": "value"}))
+        self.fields["increment"] = forms.CharField(label="",
+                                                   required=False,
+                                                   widget=forms.TextInput(attrs={'type': 'submit',
+                                                                                 'value': '+',
+                                                                                 "class": "cta",
+                                                                                 "data-role": "increment"}))
+
+

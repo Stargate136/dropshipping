@@ -27,7 +27,7 @@
             <div class="add-to-cart"><label for="quantity">Quantité :</label>
                 <div class="quantity">
                     <a class="cta" id="decrement" href="">-</a>
-                    <input type="text" id="quantity" name="quantity" value="1" readonly>
+                    <input class="quantity-value" type="text" id="quantity" name="quantity" value="1" readonly>
                     <a class="cta" id="increment" href="">+</a>
                 </div>
 
@@ -44,5 +44,5 @@
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'store/js/detail.js' %}"></script>
+    <script type="module" src="{% static 'store/js/detail.js' %}"></script>
 {% endblock %}

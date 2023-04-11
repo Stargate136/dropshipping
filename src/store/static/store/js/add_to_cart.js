@@ -19,12 +19,13 @@ export function addEventsListenersQuantity(incrementButton, decrementButton, qua
     });
 }
 
-export function addEventListenerAddToCart() {
+export function addEventListenerAddToCart(addToCartLink, quantityInput, redirect) {
     // Ajout de gestionnaires d'événements aux boutons
     addToCartLink.addEventListener("click", function(event) {
         event.preventDefault();
         const quantityValue = parseInt(quantityInput.value);
         addToCartLink.href += `?quantity=${quantityValue}`;
+        addToCartLink.href += `&redirect=${redirect}`;
         window.location.href = addToCartLink.href;
     })
 }

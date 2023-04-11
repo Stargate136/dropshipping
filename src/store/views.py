@@ -46,7 +46,13 @@ def add_to_cart(request, slug):
     else:
         messages.add_message(request, messages.INFO, "Une erreur s'est produite... Veuillez réessayer ultérieurement.")
 
-    return redirect(reverse("store:product-detail", kwargs={"slug": slug}))
+    redirect_url = request.GET.get("redirect")
+    if redirect_url == "store:product-detail":
+        kwargs = {"slug": slug}
+    else:
+        kwargs = {}
+
+    return redirect(reverse(redirect_url, kwargs=kwargs))
 
 
 @login_required

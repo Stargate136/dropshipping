@@ -1,3 +1,5 @@
+@import url("quantity.css");
+
 .product {
     display: flex;
     justify-content: space-between;
@@ -6,28 +8,16 @@
 }
 
 .thumbnail-max {
-    max-width: 60%;
-    max-height: 40%;
+    max-width: 500px;
 }
 
 .details {
-    width: 60%;
-    padding-right: 80px
+    width: 100%;
+    padding: 0 300px;
 }
 
 .add-to-cart {
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-.quantity {
-    display: flex;
-}
-
-#quantity {
-    max-width: 40px;
-    font-size: 28px;
-    margin: auto;
-    text-align: center
 }

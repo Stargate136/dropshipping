@@ -1,3 +1,5 @@
+@import url("products_grid.css");
+
 .categories {
     padding: 10px;
     display: flex;
@@ -43,12 +45,23 @@
     display: block;
 }
 
+.links-product {
+    display: flex;
+    justify-content: space-around;
+}
+
+.link-products div {
+    width: 100px;
+}
+
 .thumbnail-miniature {
     width: 250px;
     height: 200px;
     object-fit: contain;
-    padding-left: 0
+    padding-left: 0;
 }
+
+/* GRID */
 
 .products {
     display: grid;
@@ -62,14 +75,6 @@
     margin: 30px;
 }
 
-.links-product {
-    display: flex;
-    justify-content: space-around;
-}
-
-.link-products div {
-    width: 100px;
-}
 
 .hide-grid {
     display: none;

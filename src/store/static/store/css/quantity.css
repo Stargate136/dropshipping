@@ -1,0 +1,11 @@
+.quantity {
+    max-width: 25%;
+    display: flex;
+}
+
+.quantity-value {
+    max-width: 40px;
+    font-size: 28px;
+    margin: auto;
+    text-align: center
+}

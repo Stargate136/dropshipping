@@ -85,12 +85,20 @@ class Cart(models.Model):
                                                      ordered=False)
         if created:
             order.quantity = quantity
+            order.save()
             self.orders.add(order)
             self.save()
         else:
             order.quantity += quantity
             order.save()
         return True
+
+    def delete_order(self, slug):
+        product = get_object_or_404(Product, slug=slug)
+        order = get_object_or_404(Order, product=product)
+        order.delete()
+        if self.orders.count() == 0:
+            self.delete()
 
     def total(self):
         total = 0

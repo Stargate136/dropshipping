@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import AnonymousUser
 from django.forms import modelformset_factory
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -56,10 +55,11 @@ def cart(request):
     if orders.count() == 0:
         return redirect(reverse("store:index"))
     OrderFormSet = modelformset_factory(models.Order, form=forms.OrderForm, extra=0)
-    formset = OrderFormSet(queryset =orders)
+    formset = OrderFormSet(queryset=orders)
     return render(request, "store/cart.html", context={"forms": formset})
 
 
+@login_required
 def update_quantities(request):
     queryset = models.Order.objects.filter(user=request.user, ordered=False)
     OrderFormSet = modelformset_factory(models.Order, form=forms.OrderForm, extra=0)
@@ -69,12 +69,21 @@ def update_quantities(request):
     return redirect(reverse("store:cart"))
 
 
+@login_required
+def delete_order(request, slug):
+    user = request.user
+    user.cart.delete_order(slug)
+    return redirect(reverse("store:cart"))
+
+
+@login_required
 def delete_cart(request):
     if cart := request.user.cart:
         cart.delete()
     return redirect(reverse("store:index"))
 
 
+@login_required()
 def create_checkout_session(request):
     cart = request.user.cart
 
@@ -86,7 +95,7 @@ def create_checkout_session(request):
                      "line_items": line_items,
                      "mode": "payment",
                      "payment_method_types": ["card"],
-                     "success_url": request.build_absolute_uri(reverse("store:checkout-succes")),
+                     "success_url": request.build_absolute_uri(reverse("store:checkout-success")),
                      "cancel_url": request.build_absolute_uri(reverse("store:cart"))}
     if request.user.stripe_id:
         checkout_data["customer"] = request.user.stripe_id

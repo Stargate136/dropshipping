@@ -12,10 +12,11 @@ urlpatterns = [
 
     path("cart/", cart, name="cart"),
     path("cart/update-quantities/", update_quantities, name="update-quantities"),
+    path("cart/delete-order/<slug:slug>", delete_order, name="delete-order"),
     path("cart/delete/", delete_cart, name="delete-cart"),
 
     path("cart/create-checkout-session/", create_checkout_session, name="create-checkout-session"),
-    path("cart/succes/", checkout_success, name="checkout-succes"),
+    path("cart/success/", checkout_success, name="checkout-success"),
     path("stripe-webhook/", stripe_webhook, name="stripe-webhook"),
 
 ]
